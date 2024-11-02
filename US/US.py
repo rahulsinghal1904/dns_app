@@ -1,7 +1,7 @@
-import requests
 import json
 import socket
 from flask import Flask, request, abort
+from security import safe_requests
 
 app = Flask(__name__)
 
@@ -26,7 +26,7 @@ def US_server():
     query_response = response.decode()
     query_response = json.loads(query_response)
     fs_path = 'http://' + query_response["ip"] + ':' + fs_port + '/fibonacci?' + 'number=' + number
-    returnval = requests.get(fs_path)
+    returnval = safe_requests.get(fs_path)
     return returnval.text
 
 
